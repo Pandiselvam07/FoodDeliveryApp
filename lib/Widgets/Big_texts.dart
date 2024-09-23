@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/Utilities/Colors.dart';
+import 'package:food_delivery/Utilities/Dimensions.dart';
 
 class BigTexts extends StatefulWidget {
   Color? color;
@@ -10,7 +11,7 @@ class BigTexts extends StatefulWidget {
     super.key,
     this.color = const Color(0xFF332d2b),
     required this.text,
-    this.size = 30.0,
+    this.size = 0,
     this.overflow = TextOverflow.ellipsis,
   });
 
@@ -27,7 +28,7 @@ class _BigTextsState extends State<BigTexts> {
       maxLines: 1,
       style: TextStyle(
         color: widget.color,
-        fontSize: widget.size,
+        fontSize: widget.size == 0 ? Dimensions.font20 : widget.size,
         fontWeight: FontWeight.w400,
       ),
     );
