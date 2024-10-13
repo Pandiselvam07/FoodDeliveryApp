@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/Controller/Popular_product_controller.dart';
 import 'package:food_delivery/Utilities/Colors.dart';
 import 'package:food_delivery/Utilities/Dimensions.dart';
 import 'package:food_delivery/Widgets/App_column.dart';
@@ -7,6 +8,7 @@ import 'package:food_delivery/Widgets/Big_texts.dart';
 import 'package:food_delivery/Widgets/Expandable_text_widget.dart';
 import 'package:food_delivery/Widgets/Icon_and_text_widget.dart';
 import 'package:food_delivery/Widgets/Small_texts.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetails extends StatelessWidget {
   const PopularFoodDetails({super.key});
@@ -66,11 +68,11 @@ class PopularFoodDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppColumn(text: 'Chicken Briyani'),
+                  const AppColumn(text: 'Chicken Briyani'),
                   SizedBox(height: Dimensions.height20),
                   BigTexts(text: "Introduce"),
                   SizedBox(height: Dimensions.height20),
-                  Expanded(
+                  const Expanded(
                     child: SingleChildScrollView(
                       child: ExpandableTextWidget(
                           text:
@@ -96,7 +98,7 @@ class PopularFoodDetails extends StatelessWidget {
               topLeft: Radius.circular(Dimensions.radius30),
               topRight: Radius.circular(Dimensions.radius30),
             ),
-            color: AppColors.buttonBackgrounfColor),
+            color: AppColors.buttonBackgroundColor),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

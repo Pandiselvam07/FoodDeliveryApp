@@ -123,7 +123,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                   topLeft: Radius.circular(Dimensions.radius30),
                   topRight: Radius.circular(Dimensions.radius30),
                 ),
-                color: AppColors.buttonBackgrounfColor),
+                color: AppColors.buttonBackgroundColor),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
