@@ -1,25 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/Controller/Recommended_product_controller.dart';
+import 'package:food_delivery/Route/Route_helper.dart';
+import 'package:food_delivery/Utilities/App_constants.dart';
 import 'package:food_delivery/Utilities/Colors.dart';
 import 'package:food_delivery/Utilities/Dimensions.dart';
 import 'package:food_delivery/Widgets/App_icons.dart';
 import 'package:food_delivery/Widgets/Big_texts.dart';
 import 'package:food_delivery/Widgets/Expandable_text_widget.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodDetails extends StatelessWidget {
-  const RecommendedFoodDetails({super.key});
+  int pageId;
+  RecommendedFoodDetails({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcons(icon: Icons.clear),
+                GestureDetector(
+                    onTap: () {
+                      Get.toNamed(RouteHelper.getInitial());
+                    },
+                    child: AppIcons(icon: Icons.clear)),
                 AppIcons(icon: Icons.shopping_cart_outlined),
               ],
             ),
@@ -33,7 +45,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                 width: double.maxFinite,
                 child: Center(
                   child: BigTexts(
-                    text: "Parotta",
+                    text: product.name!,
                     size: Dimensions.font20,
                   ),
                 ),
@@ -52,8 +64,8 @@ class RecommendedFoodDetails extends StatelessWidget {
             expandedHeight: 300,
             // backgroundColor: Color(0xFFFFB6C1),
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/images/Food2.png",
+              background: Image.network(
+                AppConstants.baseUrl + AppConstants.uploadUrl + product.img!,
                 fit: BoxFit.cover,
                 width: double.infinity,
               ),
@@ -69,8 +81,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                       right: Dimensions.width20,
                     ),
                     child: ExpandableTextWidget(
-                      text:
-                          ("Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries.Parotta is one of the popular south indian layered paratha recipe made with maida or plain flour. it is known for its crisp and flaky taste with multiple layers of folded and twisted parotta layers in it. it is generally served with a spicy coconut-based vegetable kurma recipe, but can also be served with choice of north indian curries."),
+                      text: product.description!,
                     ),
                   ),
                 ],
@@ -98,7 +109,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                   iconSize: Dimensions.iconSize24,
                 ),
                 BigTexts(
-                  text: " ₹20 " + " X " + " 0 ",
+                  text: " \$ ${product.price!}  X  0 ",
                   color: AppColors.mainBlackColor,
                 ),
                 AppIcons(
@@ -155,7 +166,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                     child: Row(
                       children: [
                         SizedBox(width: Dimensions.width10),
-                        BigTexts(text: " ₹20 " + "| Add to cart"),
+                        BigTexts(text: " \$ ${product.price!}  | Add to cart"),
                         SizedBox(width: Dimensions.width10),
                       ],
                     )),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/Controller/Popular_product_controller.dart';
+import 'package:food_delivery/Pages/Home/Main_food_page.dart';
+import 'package:food_delivery/Route/Route_helper.dart';
+import 'package:food_delivery/Utilities/App_constants.dart';
 import 'package:food_delivery/Utilities/Colors.dart';
 import 'package:food_delivery/Utilities/Dimensions.dart';
 import 'package:food_delivery/Widgets/App_column.dart';
@@ -11,10 +14,13 @@ import 'package:food_delivery/Widgets/Small_texts.dart';
 import 'package:get/get.dart';
 
 class PopularFoodDetails extends StatelessWidget {
-  const PopularFoodDetails({super.key});
+  int pageId;
+  PopularFoodDetails({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
     return Scaffold(
       body: Stack(
         children: [
@@ -25,10 +31,12 @@ class PopularFoodDetails extends StatelessWidget {
             child: Container(
               width: double.maxFinite,
               height: Dimensions.popularFoodImgSize,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/images/Food1.png"),
+                  image: NetworkImage(AppConstants.baseUrl +
+                      AppConstants.uploadUrl +
+                      product.img!),
                 ),
               ),
             ),
@@ -38,11 +46,16 @@ class PopularFoodDetails extends StatelessWidget {
             top: Dimensions.height50,
             left: Dimensions.width20,
             right: Dimensions.width20,
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcons(icon: Icons.arrow_back),
-                AppIcons(icon: Icons.shopping_cart)
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RouteHelper.initial);
+                  },
+                  child: AppIcons(icon: Icons.arrow_back),
+                ),
+                const AppIcons(icon: Icons.shopping_cart)
               ],
             ),
           ),
@@ -68,15 +81,13 @@ class PopularFoodDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AppColumn(text: 'Chicken Briyani'),
+                  AppColumn(text: product.name!),
                   SizedBox(height: Dimensions.height20),
                   BigTexts(text: "Introduce"),
                   SizedBox(height: Dimensions.height20),
-                  const Expanded(
+                  Expanded(
                     child: SingleChildScrollView(
-                      child: ExpandableTextWidget(
-                          text:
-                              "Aromatic long-grain rice, perfectly layered over succulent chicken marinated in a blend of earthy, aromatic spices, garnished with caramelized onions and delicate strands of saffron. Each bite bursts with the vibrant flavors of India. "),
+                      child: ExpandableTextWidget(text: product.description!),
                     ),
                   ),
                 ],
@@ -136,7 +147,7 @@ class PopularFoodDetails extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: Dimensions.width10),
-                    BigTexts(text: " ₹150 " + "|Add to cart"),
+                    BigTexts(text: " \$ ${product.price!}  |Add to cart"),
                     SizedBox(width: Dimensions.width10),
                   ],
                 )),
